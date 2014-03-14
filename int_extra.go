@@ -4,7 +4,7 @@
 
 // Implement extra functionality not in big.Int
 
-package gmp
+package big
 
 /*
 #cgo LDFLAGS: -lgmp

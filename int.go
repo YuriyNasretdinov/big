@@ -4,7 +4,7 @@
 
 // This file implements signed multi-precision integers.
 
-package gmp
+package big
 
 // FIXME could we use Go's allocator (gmp can use a custom allocator)
 // instead of using runtime.SetFinalizer to manage memory?
@@ -71,6 +71,27 @@ func _Int_finalize(z *Int) {
 		C.mpz_clear(&z.i[0])
 		z.init = false
 	}
+}
+
+type Word uintptr
+
+// Bits provides raw (unchecked but fast) access to x by returning its
+// absolute value as a little-endian Word slice. The result and x share
+// the same underlying array.
+// Bits is intended to support implementation of missing low-level Int
+// functionality outside this package; it should be avoided otherwise.
+func (x *Int) Bits() []Word {
+	b := make([]Word, 1+(x.BitLen()+63)/64)
+	n := C.size_t(len(b))
+	C.mpz_export(unsafe.Pointer(&b[0]), &n, -1, 8, -1, 0, &x.i[0])
+	res := b[0:n]
+	return res
+}
+
+// Len returns the length of z in bits.  0 is considered to have length 1.
+func (z *Int) Len() int {
+	z.doinit()
+	return int(C.mpz_sizeinbase(&z.i[0], 2))
 }
 
 // Int promises that the zero value is a 0, but in gmp

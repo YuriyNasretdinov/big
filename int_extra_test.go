@@ -4,7 +4,7 @@
 
 // Test extra functionality
 
-package gmp
+package big
 
 import (
 	"testing"

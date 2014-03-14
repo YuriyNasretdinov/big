@@ -25,41 +25,23 @@ See here for package docs
 
 * http://go.pkgdoc.org/github.com/ncw/gmp
 
-[![Build Status](https://travis-ci.org/ncw/gmp.png)](https://travis-ci.org/ncw/gmp)
-
 Install
 -------
 
-Use go to install the library
+This package is intended as full replacement for go math/big package, so installation is a bit harder than "go get":
 
-    go get github.com/ncw/gmp
+    cd $GOROOT/src/pkg/math
+    rm -rf big
+    git clone https://github.com/YuriyNasretdinov/big.git
+    cd $GOROOT/src
+    ./all.bash # all tests, including encryption and math/big itself should pass
 
-Usage
------
-
-See here for full package docs
-
-* http://go.pkgdoc.org/github.com/ncw/gmp
-
-To use as in a drop in replacement for math/big, replace
-
-    import "math/big"
-
-With
-
-    import big "github.com/ncw/gmp"
-
-Features that aren't part of math/big are clearly marked and if you
-are using those, then I suggest you import as
-
-    import "github.com/ncw/gmp"
-    
 Testing
 -------
 
 To run the tests use
 
-    go test github.com/ncw/gmp
+    cd $GOROOT/src/pkg/math/big && go test
 
 The tests have been copied from the tests for the math/big library in
 the Go source and modified as little as possible so it should be 100%
@@ -70,7 +52,7 @@ Differences
 
 Here are the differences between math/big and this package
 
-* `Int.Bits` and `Int.SetBits` not implemented
+* `Int.SetBits` not implemented
 * `Rat.Num()` and `Rat.Denom()` return a copy not a reference, so
 *  If you want to set them use the new methods `Rat.SetNum()` and `Rat.SetDenom()`
 
@@ -100,4 +82,4 @@ Authors
 Contributors
 ------------
 
-* Your name here!
+* Yuriy Nasretdinov

@@ -27,4 +27,4 @@
 // returning a result other than *Int or *Rat take one of the operands as
 // the receiver.
 //
-package gmp
+package big

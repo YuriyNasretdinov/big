@@ -4,7 +4,7 @@
 
 // This file implements multi-precision rational numbers.
 
-package gmp
+package big
 
 /*
 #include <gmp.h>
